@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
-const port = 3005;
+// const port = 3007;
 
 
   const connectDB = async () => {
@@ -13,11 +13,11 @@ const port = 3005;
       });
       console.log('Connected to MongoDB');
 
-      app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
-        //  createUser("user7","111")
-        listUsers()
-      });
+    //   app.listen(port, () => {
+    //     console.log(`Server is running on port ${port}`);
+    //     //  createUser("user7","111")
+    //     listUsers()
+    //   });
 
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
