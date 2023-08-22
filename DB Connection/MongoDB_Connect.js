@@ -5,7 +5,6 @@ const app = express();
 const port = 3005;
 
 
-
   const connectDB = async () => {
     try {
       await mongoose.connect('mongodb+srv://admin:admin@atlascluster.lllsis7.mongodb.net/?retryWrites=true&w=majority', {
@@ -21,6 +20,7 @@ const port = 3005;
       console.error('Error connecting to MongoDB:', error);
     }
   };
+
   
 // db.js
 
