@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
 // Router/Route.js
 const express = require('express');
 const router = express.Router();
@@ -25,4 +22,4 @@ router.get('/api/booked/slot', deanMiddleware, deanData.bookedDetails); // Apply
 
 // Export the router
 module.exports = router;
->>>>>>> 047f3c687a92187cfa658a0d3f86bb599e318ff3
+
