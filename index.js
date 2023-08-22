@@ -1,21 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-
+const connectionDB = require('./DB Connection/MongoDB_Connect') 
 const app = express();
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/BookingSlot', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch(error => {
-    console.error('Error connecting to MongoDB:', error);
-  });
+connectionDB();
 
 // ... Rest of your code ...
 
