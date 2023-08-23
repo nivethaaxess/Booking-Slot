@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const middleware = (req, res, next) => {
+  console.log('CHECKING============>>>>>>>>>>>>>>>>>>>>')
   const secretKey = process.env.SECRET_KEY;
   let token = req.header("Authorization");
 

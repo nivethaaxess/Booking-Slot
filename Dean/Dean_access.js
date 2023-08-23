@@ -28,7 +28,7 @@ const deanBooking = async (req, res) => {
 
 
 const deanLogin = async (req, res) => {
-    const { name, uid, password } = req.body;
+    const { name, uid, password ,profile } = req.body;
 
     try {
 
@@ -37,7 +37,7 @@ const deanLogin = async (req, res) => {
 
       const user = await collection.findOne({ name, uid });
   
-      if (!user || user.password !== password) {
+      if (!user || user.password !== password || !profile) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 

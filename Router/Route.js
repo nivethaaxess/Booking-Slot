@@ -12,7 +12,7 @@ const { middleware } = require('../Middleware/middleware_check');
 
 // Student API
 router.post('/api/student/login', studentData.studentLogin);
-router.post('/api/booked/dean/available', deanData.deanAvailabilty); 
+router.post('/api/booked/dean/available',middleware, deanData.deanAvailabilty); 
 router.post('/studentBooking',middleware,studentData.slotBooking)
 
 // Dean API

@@ -48,21 +48,21 @@ const studentLogin = async (req, res) => {
     const collection = mongoose.connection.collection('dean_slots'); // Change 'users' to your actual collection name
 
     // Check if a user with the provided name and universityID exists
-    console.log("jjj",{uid: dean_uid,
-      startTime: { $lte: startTime },
-      endTime: { $gte: endTime },
-    })
-    const slotAvailability = await collection.findOne( {uid: dean_uid,
-      startTime: { $lte: startTime },
-      endTime: { $gte: endTime },
-    });
-    //
+    // console.log("jjj",{uid: dean_uid,
+    //   startTime: { $lte: startTime },
+    //   endTime: { $gte: endTime },
+    // })
+    // const slotAvailability = await collection.findOne( {uid: dean_uid,
+    //   startTime: { $lte: startTime },
+    //   endTime: { $gte: endTime },
+    // });
+    // //
 
-        console.log("**",slotAvailability)
+    //     console.log("**",slotAvailability)
 
-    if (slotAvailability) {
-      return res.status(409).json({ message: 'Slot not available' });
-    }
+    // if (slotAvailability) {
+    //   return res.status(409).json({ message: 'Slot not available' });
+    // }
 
 
     const booked = new mongodb.booked_slots({student_uid,dean_uid,student_name,dean_name,startTime,endTime});
