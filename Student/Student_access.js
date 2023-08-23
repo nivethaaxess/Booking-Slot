@@ -1,7 +1,7 @@
 
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const users = require('../DB Connection/MongoDB_Connect')
+const mongodb = require('../DB Connection/MongoDB_Connect')
 const mongoose = require('mongoose');
 // const studentMiddleware = require('../Middleware/middleware_check')
 require('dotenv').config();
@@ -66,19 +66,52 @@ const studentLogin = async (req, res) => {
   }
 
 
-  const slotBook = (req,res) => {
-    try{
-        const {} = req.body;
-    }
-    catch(err){
+  const slotBooking = async (req,res) => {
+    console.log("deanBooking called")
+    console.log("req",req.body)
 
+     try {
+     let {student_uid,dean_uid,student_name,dean_name,startTime,endTime} = req.body;
+
+     startTime = new Date(startTime+ 'Z');
+    endTime = new Date(endTime+ 'Z');
+    //
+    const collection = mongoose.connection.collection('dean_slots'); // Change 'users' to your actual collection name
+
+    // Check if a user with the provided name and universityID exists
+    console.log("jjj",{uid: dean_uid,
+      startTime: { $lte: startTime },
+      endTime: { $gte: endTime },
+    })
+    const slotAvailability = await collection.findOne( {uid: dean_uid,
+      startTime: { $lte: startTime },
+      endTime: { $gte: endTime },
+    });
+    //
+
+        console.log("**",slotAvailability)
+
+    if (slotAvailability) {
+      return res.status(409).json({ message: 'Slot not available' });
     }
-  }
+
+
+    const booked = new mongodb.booked_slots({student_uid,dean_uid,student_name,dean_name,startTime,endTime});
+      
+       await booked.save();
+       res.status(200).send({
+       status : "student_slot booking successfull",
+       slot:booked
+       })
+      } catch (error) {
+       console.error('Error on student booking:', error);
+       }
+  };
 
 
 
 module.exports = {
     studentLogin,
     Listdean,
-    slotBook
+    slotBooking
   };

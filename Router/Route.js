@@ -14,12 +14,13 @@ const { middleware } = require('../Middleware/middleware_check');
 // Student API
 router.post('/api/student/login', studentData.studentLogin);
 // router.get('/api/slot/details', studentMiddleware, studentData.slotDetails); // Apply studentMiddleware here
-router.post('/api/slot/booking',studentData.slotBook)
+// router.post('/api/slot/booking',studentData.slotBook)
 router.post('/api/listdean',middleware,studentData.Listdean)
+router.post('/studentBooking',middleware,studentData.slotBooking)
 
 // Dean API
  router.post('/api/dean/login', deanData.deanLogin);
- router.get('/api/booked/slot', deanMiddleware, deanData.deanBooking); // Apply deanMiddleware here
+ router.post('/deanBooking',middleware, deanData.deanBooking); // Apply deanMiddleware here
 
 // Export the router
 module.exports = router;
