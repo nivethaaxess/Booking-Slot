@@ -44,19 +44,12 @@ const studentLogin = async (req, res) => {
 
   const Listdean = async(req,res) => {
      console.log('users ===')
+      
     try{
-         console.log('trymethod')  
-       const {} = req.body
-          console.log('req',req.body)
-       const user = await users.findOne({uid,password})
-        console,log('user',user)
 
-       if(!user)
-       {
-        return res.status(401).json({ error: 'Invalid credentials' });
-       }
-
-       const deanInfo = await dean_slots.findOne({})
+      const collection = mongoose.connection.collection('dean_slots');
+      
+      const deanInfo = await collection.findOne({})
         console.log('dean===>',deanInfo)
 
        if (!deanInfo) {

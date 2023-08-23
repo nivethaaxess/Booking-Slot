@@ -61,6 +61,5 @@ const deanLogin = async (req, res) => {
 
 
 module.exports = {
- deanBooking,
- deanLogin
+ deanBooking , deanLogin
   };
