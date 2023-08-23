@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-const deanBooking = async (req,res) => {
+const deanBooking = async (req, res) => {
     console.log("deanBooking called")
+
     console.log("req",req.body)
 
     try {
@@ -16,20 +17,21 @@ const deanBooking = async (req,res) => {
 
         await booked.save();
         res.status(200).send({
-        status : "admin booking successfull",
-        slot:booked
-    })
+            status: "admin booking successfull",
+            slot: booked
+        })
     } catch (error) {
-      console.error('Error dean booking:', error);
+        console.error('Error dean booking:', error);
     }
-  };
+};
 
 
 
 const deanLogin = async (req, res) => {
     const { name, uid, password } = req.body;
-  
+
     try {
+
 
       const collection = mongoose.connection.collection('users'); 
 
@@ -46,13 +48,94 @@ const deanLogin = async (req, res) => {
       const token = jwt.sign(payload, secretKey);
       res.json({ message: 'Dean Login successful', token });
 
+
     } catch (error) {
-      res.status(500).json({ message: 'Error during login', error: error.message });
+        res.status(500).json({ message: 'Error during login', error: error.message });
     }
-  };
+};
+
+
+
+const bookedDetails = async (req, res) => {
+    const { dean_name } = req.body;
+
+    try {
+        // Find pending sessions using the BookedSlot model
+        const collection = mongoose.connection.collection('booked_slots');
+
+        const pendingSessionsCursor = collection.find({ dean_name });
+
+        const pendingSessions = [];
+
+        await pendingSessionsCursor.forEach(doc => {
+            pendingSessions.push(doc);
+        });
+
+        const convertedArray = pendingSessions;
+        console.log('convertedArray=======>>>>>>>>>>>>>>>>:', convertedArray);
+
+        const currentDate = new Date();
+
+        // Filter sessions based on current date and endTime
+        const filteredSessions = pendingSessions.filter(session => {
+            const sessionEndTime = new Date(session.endTime);
+            return currentDate < sessionEndTime;
+        });
+
+        console.log("Filtered Sessions:", filteredSessions);
+
+
+
+        res.json({ filteredSessions });
+    } catch (error) {
+        console.error('Error fetching pending sessions:', error);
+        res.status(500).json({ message: 'Error fetching pending sessions', error: error.message });
+    }
+}
+
+
+
+const deanAvailabilty = async(req,res) => {
+   
+    try{
+      const collection = mongoose.connection.collection('dean_slots');
+       
+      const allSessionsCursor = collection.find();
+      const allSessions = [];
+      
+      await allSessionsCursor.forEach(doc => {
+        allSessions.push(doc);
+      });
+      
+      const result = {
+        pendingSessions: allSessions
+      };
+
+      console.log('allSessions============>>>>>>>>>>>>>>',allSessions)
+
+      const currentDate = new Date();
+
+      // Filter sessions based on current date and endTime
+      const filteredSessions = allSessions.filter(session => {
+          const sessionEndTime = new Date(session.endTime);
+          return currentDate < sessionEndTime;
+      });
+
+      console.log("Filtered Sessions:", filteredSessions);
+      
+      res.json(filteredSessions);
+    }
+    catch(err){
+        console.error('Error fetching pending sessions:', error);
+        res.status(500).json({ message: 'Error fetching pending sessions', error: error.message });
+    }
+  }
+
 
 
 
 module.exports = {
- deanBooking , deanLogin
-  };
+    deanBooking, deanLogin, bookedDetails,deanAvailabilty
+
+};
+
