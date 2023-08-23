@@ -2,6 +2,8 @@ const connectDB = require('../DB Connection/MongoDB_Connect');
 const mongoose = require('mongoose');
 
 const moment = require('moment-timezone');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 const deanBooking = async (req,res) => {
     console.log("deanBooking called")
@@ -31,8 +33,7 @@ const deanBooking = async (req,res) => {
     }
   };
 
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+
 
 const deanLogin = async (req, res) => {
     const { name, uid, password } = req.body;
