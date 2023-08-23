@@ -1,38 +1,39 @@
-const connectDB = require('../DB Connection/MongoDB_Connect');
+
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const users = require('../DB Connection/MongoDB_Connect')
+const mongoose = require('mongoose');
+// const connectDB = require('../DB Connection/MongoDB_Connect')
+ 
 
-
-const studentLogin = async(req,res) =>{
-    const { name, universityID, password } = req.body;
-
-  // Check if all required fields are provided
-  if (!name || !universityID || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
+const studentLogin = async (req, res) => {
+  const { name, uid, password } = req.body;
 
   try {
-    // Create a new student document
-    // const newStudent = new Student({
-    //   name,
-    //   universityID,
-    //   password
-    // });
+    // Connect to the database
+    // await connectDB;  
 
-    // Save the new student document to the collection
-    // await newStudent.save();
+    // Get a reference to the users collection
+    const collection = mongoose.connection.collection('users'); // Change 'users' to your actual collection name
+
+    // Check if a user with the provided name and universityID exists
+    const user = await collection.findOne({ name, uid });
+
+    if (!user || user.password !== password) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
 
     // Create a payload for the token
-    const payload = { name, universityID };
+    const payload = { name, uid };
     const secretKey = crypto.randomBytes(32).toString('hex');
 
     console.log('Generated Secret Key:', secretKey);
-    // Sign the token with the payload and secret key
+    // Sign the token with the secret key
     const token = jwt.sign(payload, secretKey);
-
-    res.json({ message: 'Student registered successfully', token });
+    console.log('token=======>>>>>>>>>>>>>>>>:', token);
+    res.json({ message: 'Student Login successful', token });
   } catch (error) {
-    res.status(500).json({ message: 'Error registering student', error: error.message });
+    res.status(500).json({ message: 'Error during login', error: error.message });
   }
 };
 
