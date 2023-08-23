@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const users = require('../DB Connection/MongoDB_Connect')
 const mongoose = require('mongoose');
+require('dotenv').config();
 // const connectDB = require('../DB Connection/MongoDB_Connect')
  
 
@@ -25,7 +26,8 @@ const studentLogin = async (req, res) => {
 
     // Create a payload for the token
     const payload = { name, uid };
-    const secretKey = crypto.randomBytes(32).toString('hex');
+    // const secretKey = crypto.randomBytes(32).toString('hex');
+    const secretKey = process.env.SECRET_KEY ;
 
     console.log('Generated Secret Key:', secretKey);
     // Sign the token with the secret key
