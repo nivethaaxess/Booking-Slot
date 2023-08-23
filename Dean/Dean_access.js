@@ -132,10 +132,25 @@ const deanAvailabilty = async(req,res) => {
   }
 
 
+// Function to create and save a user document
+const createUser = async (req,res) => {
+  try {
+    const {uid, password,profile,name} = req.body
+    const user = new mongodb.user({ uid, password,profile,name});
+    await user.save();
+    res.status(200).send({
+      status: "user register successfull",
+      slot: user
+  })
 
+  } catch (error) {
+
+    res.status(500).json({ message: 'Error on create user', error: error });
+  }
+};
 
 module.exports = {
-    deanBooking, deanLogin, bookedDetails,deanAvailabilty
+    deanBooking, deanLogin, bookedDetails,deanAvailabilty,createUser
 
 };
 

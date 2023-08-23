@@ -8,7 +8,8 @@ const deanData = require('../Dean/Dean_access');
 
 const { middleware } = require('../Middleware/middleware_check'); 
 
-
+//create user API
+router.post('/createUser', deanData.createUser);
 
 // Student API
 router.post('/api/student/login', studentData.studentLogin);
