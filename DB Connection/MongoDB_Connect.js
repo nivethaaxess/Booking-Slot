@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 
 
-
   const connectDB = async () => {
     try {
       await mongoose.connect('mongodb+srv://admin:admin@atlascluster.lllsis7.mongodb.net/?retryWrites=true&w=majority', {
@@ -11,6 +10,9 @@ const app = express();
         useUnifiedTopology: true,
       });
       console.log('Connected to MongoDB');
+      //  createUser("student4",111,"student","student4")
+      // listUsers()
+
 
 
     } catch (error) {
@@ -21,26 +23,34 @@ const app = express();
   // db.js
 
 
-// Define a schema for the user collection
+
+
+// Function to create and save a user document
+const createUser = async (uid, password,profile,name) => {
+
+  console.log("createUser")
+  // Define a schema for the user collection
 const userSchema = new mongoose.Schema({
-  id: String,
+  uid: String,
   password: String,
+  profile : String,
+  name :String
+
 });
 
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema);
-
-// Function to create and save a user document
-const createUser = async (id, password) => {
-  console.log("createUser")
   try {
-    const user = new User({ id, password });
+    console.log("***",{ uid, password,profile,name})
+    const user = new User({ uid, password,profile,name});
     await user.save();
     console.log('User saved:', user);
   } catch (error) {
     console.error('Error saving user:', error);
   }
 };
+
+
 const listUsers = async () => {
   try {
     const users = await User.find();
@@ -50,7 +60,30 @@ const listUsers = async () => {
   }
 };
 
-module.exports = { connectDB };
+const studentBookingSchema = new mongoose.Schema({
+  student_uid: String,
+  dean_uid: String,
+  student_name: String,
+  dean_name: String,
+  startTime: Date,
+  endTime: Date,
+});
+
+// Create the booked_slots model based on the schema
+const booked_slots = mongoose.model('booked_slots', studentBookingSchema);
+
+const adminBookingSchema = new mongoose.Schema({
+  uid: String,
+  name: String,
+  startTime: Date,
+  endTime: Date,
+});
+
+// Create a  model based on the schema
+const dean_slots = mongoose.model('dean_slots', adminBookingSchema);
+
+
+module.exports = { connectDB,booked_slots,dean_slots };
 
 
 

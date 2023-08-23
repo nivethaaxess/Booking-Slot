@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const users = require('../DB Connection/MongoDB_Connect')
 const mongoose = require('mongoose');
+// const studentMiddleware = require('../Middleware/middleware_check')
 require('dotenv').config();
 // const connectDB = require('../DB Connection/MongoDB_Connect')
  
@@ -45,7 +46,7 @@ const studentLogin = async (req, res) => {
      console.log('users ===')
     try{
          console.log('trymethod')  
-       const {uid,password} = req.body
+       const {} = req.body
           console.log('req',req.body)
        const user = await users.findOne({uid,password})
         console,log('user',user)

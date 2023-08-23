@@ -1,7 +1,31 @@
-const connectDB = require('../DB Connection/MongoDB_Connect');
+const mongodb = require('../DB Connection/MongoDB_Connect');
 const mongoose = require('mongoose');
+
+const moment = require('moment-timezone');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+
+const deanBooking = async (req,res) => {
+    console.log("deanBooking called")
+    console.log("req",req.body)
+
+    try {
+        let {uid,name,startTime} = req.body;       
+         startTime = new Date(startTime  + 'Z');
+         const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
+         const booked = new mongodb.dean_slots({uid,name,startTime,endTime});
+
+        await booked.save();
+        res.status(200).send({
+        status : "admin booking successfull",
+        slot:booked
+    })
+    } catch (error) {
+      console.error('Error dean booking:', error);
+    }
+  };
+
+
 
 const deanLogin = async (req, res) => {
     const { name, uid, password } = req.body;
@@ -35,15 +59,7 @@ const deanLogin = async (req, res) => {
   };
 
 
-const bookedDetails = () =>{
-    try{
-        const {} = req.body;
-    }
-    catch(err){
-
-    }
-}
 
 module.exports = {
-    deanLogin , bookedDetails
+ deanBooking
   };
