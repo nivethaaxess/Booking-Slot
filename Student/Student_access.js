@@ -42,14 +42,7 @@ const studentLogin = async (req, res) => {
 
 
 
-  const slotDetails = (req,res) => {
-    try{
-
-    }
-    catch(err){
-
-    }
-  }
+  
 
 
   const slotBooking = async (req,res) => {
@@ -86,5 +79,5 @@ const studentLogin = async (req, res) => {
 
 module.exports = {
     studentLogin, 
-    slotBooking
+    slotBooking 
   };

@@ -20,6 +20,8 @@ router.post('/studentBooking', studentData.slotBooking);
 // router.post('/api/dean/login', deanData.deanLogin);
 router.post('/deanBooking', deanData.deanBooking);
 // router.get('/api/booked/slot', deanMiddleware, deanData.bookedDetails); // Apply deanMiddleware here
+router.post('/api/booked/slot/details', deanData.bookedDetails); 
+router.post('/api/booked/dean/available', deanData.deanAvailabilty); 
 
 // Export the router
 module.exports = router;
