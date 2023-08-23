@@ -13,19 +13,12 @@ const app = express();
       });
       console.log('Connected to MongoDB');
 
-    //   app.listen(port, () => {
-    //     console.log(`Server is running on port ${port}`);
-    //     //  createUser("user7","111")
-    //     listUsers()
-    //   });
-
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
     }
   };
 
-  
-// db.js
+  // db.js
 
 
 // Define a schema for the user collection
