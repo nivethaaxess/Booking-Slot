@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
-const port = 3005;
-
 
   const connectDB = async () => {
     try {
@@ -12,12 +10,8 @@ const port = 3005;
         useUnifiedTopology: true,
       });
       console.log('Connected to MongoDB');
-
-      app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
-        //  createUser("user7","111")
-        listUsers()
-      });
+      //  createUser("student4",111,"student","student4")
+      // listUsers()
 
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
@@ -28,26 +22,34 @@ const port = 3005;
 // db.js
 
 
-// Define a schema for the user collection
+
+
+// Function to create and save a user document
+const createUser = async (uid, password,profile,name) => {
+
+  console.log("createUser")
+  // Define a schema for the user collection
 const userSchema = new mongoose.Schema({
-  id: String,
+  uid: String,
   password: String,
+  profile : String,
+  name :String
+
 });
 
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema);
-
-// Function to create and save a user document
-const createUser = async (id, password) => {
-  console.log("createUser")
   try {
-    const user = new User({ id, password });
+    console.log("***",{ uid, password,profile,name})
+    const user = new User({ uid, password,profile,name});
     await user.save();
     console.log('User saved:', user);
   } catch (error) {
     console.error('Error saving user:', error);
   }
 };
+
+
 const listUsers = async () => {
   try {
     const users = await User.find();
