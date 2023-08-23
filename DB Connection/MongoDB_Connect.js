@@ -13,13 +13,13 @@ const app = express();
       //  createUser("student4",111,"student","student4")
       // listUsers()
 
+
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
     }
   };
 
-  
-// db.js
+  // db.js
 
 
 
