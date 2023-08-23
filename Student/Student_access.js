@@ -2,7 +2,7 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-const users = require('../DB Connection/MongoDB_Connect')
+const mongodb = require('../DB Connection/MongoDB_Connect')
 const mongoose = require('mongoose');
 require('dotenv').config();
 // const connectDB = require('../DB Connection/MongoDB_Connect')
@@ -41,36 +41,17 @@ const studentLogin = async (req, res) => {
 };
 
 
-
-  const slotDetails = (req,res) => {
-    try{
-
-    }
-    catch(err){
-
-    }
-  }
-
-
   const slotBooking = async (req,res) => {
     console.log("deanBooking called")
     console.log("req",req.body)
-    const studentBookingSchema = new mongoose.Schema({
-      student_uid: String,
-      dean_uid: String,
-      student_name: String,
-      dean_name: String,
-      startTime: Date,
-      endTime: Date,
-    });
-    
-    // Create a  model based on the schema
-    const booked_slots = mongoose.model('booked_slots', studentBookingSchema);
+
     try {
-        let {student_uid,dean_uid,student_name,dean_name,startTime,endTime} = req.body;       
-          startTime = new Date(startTime  + 'Z');
-         endTime =  new Date(endTime  + 'Z');
-         const booked = new booked_slots({student_uid,dean_uid,student_name,dean_name,startTime,endTime});
+        let {student_uid,dean_uid,student_name,dean_name,startTime,endTime} = req.body;    
+
+        startTime = new Date(startTime  + 'Z');
+        endTime =  new Date(endTime  + 'Z');
+
+         const booked = new mongodb.booked_slots({student_uid,dean_uid,student_name,dean_name,startTime,endTime});
 
         await booked.save();
         res.status(200).send({

@@ -14,7 +14,7 @@ const dbconnection = require('./DB Connection/MongoDB_Connect')
 dbconnection.connectDB()
 
 
-const port = 3005;
+const port = 3010;
 
    app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
