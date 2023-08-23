@@ -13,12 +13,13 @@ const { studentMiddleware, deanMiddleware } = require('../Middleware/middleware_
 
 // Student API
 router.post('/api/student/login', studentData.studentLogin);
-router.get('/api/slot/details', studentMiddleware, studentData.slotDetails); // Apply studentMiddleware here
+// router.get('/api/slot/details', studentMiddleware, studentData.slotDetails); // Apply studentMiddleware here
 router.post('/api/slot/booking',studentData.slotBook)
+router.post('/api/listdean',studentData.Listdean)
 
 // Dean API
 router.post('/api/dean/login', deanData.deanLogin);
-router.get('/api/booked/slot', deanMiddleware, deanData.bookedDetails); // Apply deanMiddleware here
+// router.get('/api/booked/slot', deanMiddleware, deanData.bookedDetails); // Apply deanMiddleware here
 
 // Export the router
 module.exports = router;

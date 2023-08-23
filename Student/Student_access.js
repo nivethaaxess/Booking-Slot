@@ -38,12 +38,33 @@ const studentLogin = async(req,res) =>{
 
 
 
-  const slotDetails = (req,res) => {
+  const Listdean = async(req,res) => {
+     console.log('users ===')
     try{
+         console.log('trymethod')  
+       const {uid,password} = req.body
+          console.log('req',req.body)
+       const user = await users.findOne({uid,password})
+        console,log('user',user)
 
-    }
+       if(!user)
+       {
+        return res.status(401).json({ error: 'Invalid credentials' });
+       }
+
+       const deanInfo = await dean_slots.findOne({})
+        console.log('dean===>',deanInfo)
+
+       if (!deanInfo) {
+        return res.status(404).json({ error: 'Dean information not found' });
+      }
+       
+      res.json(deanInfo)
+    
+
+    } 
     catch(err){
-
+      res.status(500).json({ message: 'Error registering student', error: err.message });
     }
   }
 
@@ -61,6 +82,6 @@ const studentLogin = async(req,res) =>{
 
 module.exports = {
     studentLogin,
-    slotDetails,
+    Listdean,
     slotBook
   };
