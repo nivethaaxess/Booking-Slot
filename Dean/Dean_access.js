@@ -24,7 +24,7 @@ const deanBooking = async (req, res) => {
         console.error('Error dean booking:', error);
     }
 };
-
+ 
 
 
 const deanLogin = async (req, res) => {
@@ -126,8 +126,8 @@ const deanAvailabilty = async(req,res) => {
       res.json(filteredSessions);
     }
     catch(err){
-        console.error('Error fetching pending sessions:', error);
-        res.status(500).json({ message: 'Error fetching pending sessions', error: error.message });
+        console.error('Error fetching pending sessions:', err);
+        res.status(500).json({ message: 'Error fetching pending sessions', error: err.message });
     }
   }
 
