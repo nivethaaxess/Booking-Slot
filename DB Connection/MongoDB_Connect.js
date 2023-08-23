@@ -5,7 +5,7 @@ const app = express();
 
   const connectDB = async () => {
     try {
-      await mongoose.connect('mongodb+srv://admin:admin@atlascluster.lllsis7.mongodb.net/?retryWrites=true&w=majority', {
+      await mongoose.connect(`mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@atlascluster.lllsis7.mongodb.net/?retryWrites=true&w=majority`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });

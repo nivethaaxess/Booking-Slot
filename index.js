@@ -1,4 +1,4 @@
- const express = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -15,7 +15,6 @@ dbconnection.connectDB()
 
 
 const port = 3005;
-
 
    app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
