@@ -7,7 +7,7 @@ console.log('DINESH')
 const studentData = require('../Student/Student_access');
 const deanData = require('../Dean/Dean_access');
 
-const { studentMiddleware, deanMiddleware } = require('../Middleware/middleware_check'); 
+const { middleware } = require('../Middleware/middleware_check'); 
 
 
 
@@ -15,7 +15,7 @@ const { studentMiddleware, deanMiddleware } = require('../Middleware/middleware_
 router.post('/api/student/login', studentData.studentLogin);
 // router.get('/api/slot/details', studentMiddleware, studentData.slotDetails); // Apply studentMiddleware here
 router.post('/api/slot/booking',studentData.slotBook)
-router.post('/api/listdean',studentMiddleware,studentData.Listdean)
+router.post('/api/listdean',middleware,studentData.Listdean)
 
 // Dean API
 router.post('/api/dean/login', deanData.deanLogin);

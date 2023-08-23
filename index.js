@@ -6,7 +6,7 @@ const Routes = require('./Router/Route')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+  
 app.use('/',Routes);
 
 

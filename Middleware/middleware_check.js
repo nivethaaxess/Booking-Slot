@@ -4,7 +4,7 @@
 
 
 
- const studentMiddleware = (req, res, next) => {
+ const middleware = (req, res, next) => {
   const secretKey = process.env.SECRET_KEY ;
   const token = req.header('Authorization');
   console.log('token2----->',token)
@@ -31,5 +31,5 @@
     next();
   };
   
-  module.exports = { studentMiddleware, deanMiddleware };
+  module.exports = { middleware};
   
