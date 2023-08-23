@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const express = require('express');
-const app = express();
 
 
   const connectDB = async () => {
@@ -9,10 +7,6 @@ const app = express();
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      console.log('Connected to MongoDB');
-      //  createUser("student4",111,"student","student4")
-      // listUsers()
-
 
 
     } catch (error) {
@@ -20,16 +14,7 @@ const app = express();
     }
   };
 
-  // db.js
 
-
-
-
-// Function to create and save a user document
-const createUser = async (uid, password,profile,name) => {
-
-  console.log("createUser")
-  // Define a schema for the user collection
 const userSchema = new mongoose.Schema({
   uid: String,
   password: String,
@@ -37,28 +22,7 @@ const userSchema = new mongoose.Schema({
   name :String
 
 });
-
-// Create a User model based on the schema
-const User = mongoose.model('User', userSchema);
-  try {
-    console.log("***",{ uid, password,profile,name})
-    const user = new User({ uid, password,profile,name});
-    await user.save();
-    console.log('User saved:', user);
-  } catch (error) {
-    console.error('Error saving user:', error);
-  }
-};
-
-
-const listUsers = async () => {
-  try {
-    const users = await User.find();
-    console.log('List of users:', users);
-  } catch (error) {
-    console.error('Error listing users:', error);
-  }
-};
+const user = mongoose.model('User', userSchema);
 
 const studentBookingSchema = new mongoose.Schema({
   student_uid: String,
@@ -83,7 +47,7 @@ const adminBookingSchema = new mongoose.Schema({
 const dean_slots = mongoose.model('dean_slots', adminBookingSchema);
 
 
-module.exports = { connectDB,booked_slots,dean_slots };
+module.exports = { connectDB,user,booked_slots,dean_slots };
 
 
 
